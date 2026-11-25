@@ -52,6 +52,21 @@ body[data-tone="green"] {
   --orange-dark: #437a5b;
 }
 
+body[data-tone="blue"] {
+  --bg: #f4f9fd;
+  --bg-grid: #e3f0fa;
+  --surface: #ffffff;
+  --surface-alt: #ebf4fb;
+  --border: #93c5e8;
+  --border-dark: #2c6a99;
+  --shadow: #b8dbf4;
+  --text: #172a3a;
+  --text-muted: #4a6b84;
+  --yellow: #d6ebf9;
+  --orange: #5fa3d6;
+  --orange-dark: #2c6a99;
+}
+
 body[data-tone="mono"] {
   --bg: #f8fafc;
   --bg-grid: #e2e8f0;

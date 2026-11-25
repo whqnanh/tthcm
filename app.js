@@ -18,11 +18,12 @@
     instantCheck: true
   };
 
-  const TONE_ORDER = ["warm", "pink", "green", "mono"];
+  const TONE_ORDER = ["warm", "pink", "green", "blue", "mono"];
   const TONE_LABELS = {
     warm: "Màu: Vàng cam",
     pink: "Màu: Hồng",
     green: "Màu: Xanh lá",
+    blue: "Màu: Xanh nước",
     mono: "Màu: Trắng đen"
   };
 
