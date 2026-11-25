@@ -101,7 +101,7 @@ const RAW_DATA = [
   },
   {
     "id": 21,
-    "question": "Theo Hồ Chí Minh, thực hiện đoàn kết quốc tế nhằm mục đích gì? Đáp án: d",
+    "question": "Theo Hồ Chí Minh, thực hiện đoàn kết quốc tế nhằm mục đích gì?",
     "answer": null
   },
   {
@@ -457,7 +457,7 @@ const RAW_DATA = [
   {
     "id": 92,
     "question": "Theo quan niệm Hồ Chí Minh, nền giáo dục mới ở Việt Nam ra đời từ khi nào?",
-    "answer": "Khi Cách Mạng Tháng thành công, 1945"
+    "answer": "Khi Cách Mạng Tháng Tám thành công, 1945"
   },
   {
     "id": 93,
@@ -622,7 +622,7 @@ const RAW_DATA = [
   {
     "id": 125,
     "question": "Theo quan niệm Hồ Chí Minh, yếu tố nào là nền tảng cơ bản cho tài năng con người phát triển?",
-    "answer": "Phẩm chất đaọ đức"
+    "answer": "Phẩm chất đạo đức"
   },
   {
     "id": 126,
@@ -697,7 +697,7 @@ const RAW_DATA = [
   {
     "id": 140,
     "question": "Theo quan điểm của Mác và Ăngghen, cách mạng vô sản ở châu Âu đi theo con đường (tiến trình) nào?",
-    "answer": "Giai phóng giai cấp - Giai phóng dân tộc - Giai phóng xã hội - Giai phóng con người."
+    "answer": "Giải phóng giai cấp - Giải phóng dân tộc - Giải phóng xã hội - Giải phóng con người."
   },
   {
     "id": 141,
@@ -987,7 +987,7 @@ const RAW_DATA = [
   {
     "id": 198,
     "question": "Theo Hồ Chí Minh điểm tương đồng giữa cách mạng Việt Nam với phong trào cộng sản và công nhân quốc tế là gì?",
-    "answer": "Cùng giương cao ngọn cờ độc lập dân tộc gắn liền vời chủ nghĩa xã hội,"
+    "answer": "Cùng giương cao ngọn cờ độc lập dân tộc gắn liền với chủ nghĩa xã hội"
   },
   {
     "id": 199,
