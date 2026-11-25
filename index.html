@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ôn Tập TTHCM - Trắc Nghiệm 200 Câu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-tone="warm">
+  <div class="app-shell">
+    <!-- THANH TRÊN -->
+    <header class="pixel-topbar">
+      <div class="brand-block">
+        <h1 class="brand-title">Ôn tập Tư tưởng Hồ Chí Minh</h1>
+      </div>
+      <div class="topbar-controls">
+        <button id="btn-home-top" class="px-btn px-btn-sm hidden" type="button">Trang chủ</button>
+      </div>
+    </header>
+
+    <!-- MÀN HÌNH CHÍNH -->
+    <main id="screen-home" class="screen">
+      <section class="px-panel">
+        <div class="summary-bar">
+          <span>Tổng số: <strong id="stat-total">200</strong> câu</span>
+          <span>Đã làm: <strong id="stat-answered">0</strong></span>
+          <span>Tỷ lệ đúng: <strong id="stat-accuracy">0%</strong></span>
+          <span>Cần ôn lại: <strong id="wrong-count">0</strong> câu</span>
+        </div>
+
+        <div class="section-block">
+          <div class="section-header">
+            <div class="section-title">Tùy chọn</div>
+          </div>
+          <div class="mode-grid mode-grid-3">
+            <button class="px-card-btn" type="button" id="btn-open-study">
+              <div class="mode-name">Xem &amp; tự thêm đáp án</div>
+              <div class="mode-info">112 câu có gợi ý gốc, 88 câu để trống tự nhập.</div>
+            </button>
+
+            <button class="px-card-btn" type="button" id="btn-raw-quiz">
+              <div class="mode-name">Trắc nghiệm</div>
+              <div class="mode-info">Thi từ đáp án gốc và các câu bạn đã tự ghi.</div>
+            </button>
+
+            <button class="px-card-btn" type="button" id="btn-open-hint">
+              <div class="mode-name">Nối từ</div>
+              <div class="mode-info">Ghép các cụm từ bên dưới thành đáp án đúng.</div>
+            </button>
+          </div>
+        </div>
+
+        <div class="section-block">
+          <div class="section-header">
+            <div class="section-title">Ôn tập</div>
+          </div>
+          <div class="mode-grid">
+            <button class="px-card-btn" type="button" data-mode="wrong">
+              <div class="mode-name">Ôn lại câu sai (<span id="wrong-count-btn">0</span>)</div>
+              <div class="mode-info">Làm lại các câu chọn sai.</div>
+            </button>
+
+            <button class="px-card-btn" type="button" id="btn-open-empty-study">
+              <div class="mode-name">Bổ sung câu trống (<span id="empty-count-btn">88</span>)</div>
+              <div class="mode-info">Mở các câu chưa có đáp án để tự thêm.</div>
+            </button>
+          </div>
+        </div>
+
+        <div class="pc-two-col">
+          <div class="section-block">
+            <div class="section-header">
+              <div class="section-title">Đề ngẫu nhiên</div>
+            </div>
+            <div class="btn-row">
+              <button class="px-btn" type="button" data-random="20">20 câu</button>
+              <button class="px-btn" type="button" data-random="40">40 câu</button>
+              <button class="px-btn" type="button" data-random="50">50 câu</button>
+              <button class="px-btn" type="button" data-random="100">100 câu</button>
+            </div>
+          </div>
+
+          <div class="section-block">
+            <div class="section-header">
+              <div class="section-title">Cài đặt</div>
+            </div>
+            <div class="btn-row">
+              <button id="btn-tone" class="px-btn" type="button">Màu: Vàng cam</button>
+              <button id="btn-reset-stats" class="px-btn px-btn-danger" type="button">
+                Xóa lịch sử
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- MÀN HÌNH LÀM BÀI -->
+    <main id="screen-quiz" class="screen hidden">
+      <section class="px-panel hud-panel">
+        <div class="hud-row">
+          <span class="hud-item">Câu: <strong id="hud-progress">1 / 40</strong></span>
+          <span class="hud-item text-green">Đúng: <strong id="hud-correct">0</strong></span>
+          <span class="hud-item text-red">Sai: <strong id="hud-wrong">0</strong></span>
+        </div>
+        <div class="px-progress-track" id="progress-segments" aria-label="Tiến độ làm bài"></div>
+      </section>
+
+      <section class="px-panel">
+        <div class="q-meta">
+          <span class="px-badge px-badge-gold" id="q-origin-id">Câu #001</span>
+          <span class="px-badge" id="q-key-source">Gợi ý gốc</span>
+        </div>
+
+        <h2 class="q-text" id="q-text">Nội dung câu hỏi...</h2>
+
+        <div class="options-list" id="options-list"></div>
+
+        <div class="quiz-actions">
+          <button id="btn-prev" class="px-btn" type="button">Câu trước</button>
+          <button id="btn-toggle-map" class="px-btn" type="button">Danh sách câu</button>
+          <button id="btn-next" class="px-btn px-btn-primary" type="button">Câu tiếp</button>
+          <button id="btn-finish" class="px-btn px-btn-gold" type="button">Nộp bài</button>
+        </div>
+      </section>
+
+      <section id="question-map-panel" class="px-panel hidden">
+        <div class="section-title">Chọn nhanh câu hỏi</div>
+        <div id="question-map-grid" class="q-map-grid"></div>
+      </section>
+    </main>
+
+    <!-- MÀN HÌNH KẾT QUẢ -->
+    <main id="screen-result" class="screen hidden">
+      <section class="px-panel result-panel">
+        <h2 class="result-title">Hoàn thành bài thi</h2>
+        <div class="result-summary">
+          Đúng <strong class="text-green" id="res-correct">0 / 0</strong> câu
+          (<strong id="res-percent">0%</strong>)
+        </div>
+
+        <div class="btn-row result-actions">
+          <button id="btn-retry-wrong" class="px-btn px-btn-danger" type="button">Làm lại câu sai</button>
+          <button id="btn-retry-all" class="px-btn px-btn-primary" type="button">Làm lại đề này</button>
+          <button id="btn-result-home" class="px-btn" type="button">Về trang chủ</button>
+        </div>
+      </section>
+
+      <section class="px-panel">
+        <div class="review-header">
+          <div class="section-title">Xem lại đáp án</div>
+          <div class="btn-row">
+            <button class="px-btn px-btn-sm is-on" type="button" data-review-filter="all">Tất cả</button>
+            <button class="px-btn px-btn-sm" type="button" data-review-filter="wrong">Chỉ câu sai</button>
+          </div>
+        </div>
+        <div id="review-list" class="review-list"></div>
+      </section>
+    </main>
+
+    <!-- MÀN HÌNH KIỂU 1: CÂU HỎI & ĐÁP ÁN GỐC -->
+    <main id="screen-study" class="screen hidden">
+      <section class="px-panel">
+        <div class="section-title">Câu hỏi &amp; Đáp án gốc</div>
+        <div class="study-controls">
+          <input
+            id="study-search"
+            class="px-input"
+            type="text"
+            placeholder="Nhập từ khóa hoặc số câu để tìm..."
+          />
+          <button id="btn-raw-quiz-inline" class="px-btn px-btn-primary" type="button">
+            Thi trắc nghiệm từ bộ này
+          </button>
+        </div>
+        <div class="btn-row study-filters">
+          <button class="px-btn px-btn-sm is-on" type="button" data-study-filter="all">Tất cả (200)</button>
+          <button class="px-btn px-btn-sm" type="button" data-study-filter="has_answer">Có gợi ý gốc (112)</button>
+          <button class="px-btn px-btn-sm" type="button" data-study-filter="empty">Chưa có đáp án (88)</button>
+        </div>
+        <div class="study-count" id="study-count">Hiển thị: 200 / 200 câu</div>
+      </section>
+
+      <section id="study-list" class="study-list"></section>
+    </main>
+
+    <!-- MÀN HÌNH CHUẨN BỊ TRẮC NGHIỆM KIỂU 1 -->
+    <main id="screen-raw-setup" class="screen hidden">
+      <section class="px-panel hint-setup-snug">
+        <div class="section-title">Trắc nghiệm</div>
+
+        <div class="raw-setup-meta">
+          <span>Có sẵn: <strong id="raw-setup-official">112</strong></span>
+          <span>Đã tự thêm: <strong id="raw-setup-custom">0</strong></span>
+        </div>
+
+        <div class="hint-setup-btns">
+          <button id="toggle-raw-shuffle-q" class="px-btn px-btn-sm px-btn-toggle" type="button">
+            Trộn thứ tự câu: Tắt
+          </button>
+          <button id="btn-start-raw-custom" class="px-btn px-btn-sm" type="button">
+            Đã tự thêm
+          </button>
+          <button id="btn-start-raw-official" class="px-btn px-btn-sm" type="button">
+            Có sẵn
+          </button>
+          <button id="btn-start-raw-both" class="px-btn px-btn-sm" type="button">
+            Đã tự thêm + Có sẵn
+          </button>
+        </div>
+
+        <div class="hint-setup-footer">
+          <button id="btn-raw-setup-back" class="px-btn px-btn-sm" type="button">
+            Quay lại
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <!-- MÀN HÌNH CHUẨN BỊ NỐI TỪ -->
+    <main id="screen-hint-setup" class="screen hidden">
+      <section class="px-panel hint-setup-snug">
+        <div class="section-title">Nối từ</div>
+
+        <div class="raw-setup-meta">
+          <span>Có sẵn: <strong id="hint-setup-official">112</strong></span>
+          <span>Đã tự thêm: <strong id="hint-setup-custom">0</strong></span>
+        </div>
+
+        <div class="hint-setup-btns">
+          <button id="toggle-hint-shuffle-q" class="px-btn px-btn-sm px-btn-toggle is-on" type="button">
+            Trộn thứ tự câu: Bật
+          </button>
+          <button id="btn-hint-mode-custom" class="px-btn px-btn-sm" type="button">
+            Đã tự thêm
+          </button>
+          <button id="btn-hint-mode-official" class="px-btn px-btn-sm" type="button">
+            Có sẵn
+          </button>
+          <button id="btn-hint-mode-both" class="px-btn px-btn-sm" type="button">
+            Đã tự thêm + Có sẵn
+          </button>
+        </div>
+
+        <div class="hint-setup-footer">
+          <button id="btn-hint-setup-back" class="px-btn px-btn-sm" type="button">
+            Quay lại
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <!-- MÀN HÌNH GỢI Ý TỪ (KHÔNG A/B/C/D) -->
+    <main id="screen-hint" class="screen hidden">
+      <section class="px-panel hud-panel">
+        <div class="hud-row">
+          <span class="hud-item">Câu: <strong id="hint-progress">1 / 112</strong></span>
+          <span class="hud-item">Đã chọn: <strong id="hint-char-count">0 / 0</strong></span>
+        </div>
+      </section>
+
+      <section class="px-panel">
+        <div class="q-meta">
+          <span class="px-badge px-badge-gold" id="hint-origin-id">Câu #001</span>
+          <span class="px-badge" id="hint-source">Gợi ý gốc</span>
+        </div>
+
+        <h2 class="q-text" id="hint-q-text">Nội dung câu hỏi...</h2>
+
+        <div class="hint-answer-box" id="hint-answer-box"></div>
+
+        <div class="hint-word-bank" id="hint-word-bank"></div>
+
+        <div class="quiz-actions">
+          <button id="btn-hint-prev" class="px-btn" type="button">Câu trước</button>
+          <button id="btn-hint-reveal" class="px-btn px-btn-primary" type="button">Gợi ý</button>
+          <button id="btn-hint-all" class="px-btn px-btn-gold" type="button">Hiện hết</button>
+          <button id="btn-hint-reset" class="px-btn" type="button">Ẩn lại</button>
+          <button id="btn-hint-next" class="px-btn" type="button">Câu tiếp</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- HỘP THOẠI PIXEL (THAY CHO ALERT / CONFIRM TRÌNH DUYỆT) -->
+  <div id="pixel-modal" class="px-modal-backdrop hidden" role="dialog" aria-modal="true">
+    <div class="px-panel px-modal-box">
+      <div id="pixel-modal-title" class="section-title">Thông báo</div>
+      <div id="pixel-modal-msg" class="px-modal-msg"></div>
+      <div class="px-modal-actions">
+        <button id="pixel-modal-cancel" class="px-btn px-btn-sm" type="button">Hủy</button>
+        <button id="pixel-modal-ok" class="px-btn px-btn-sm px-btn-primary" type="button">Đồng ý</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="raw_data.js"></script>
+  <script src="questions.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
